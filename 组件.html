@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+
+        //函数式组件必须使用大写开头
+        function Demo() {
+            console.log(this)//undefinded babel编译之后开启了严格模式
+            return <div></div>//必须有返回值
+        }
+        ReactDOM.render("<Demo/>", document.getElementById("test"))
+
+
+        //类组件-简单组件
+        class MyComponent extends React.Component{
+            render(){
+                return <div>hello world</div>
+            }
+        }
+        //有状态的组件
+        class MyComponent2 extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {}
+            }
+            render(){
+                return <div>hello world</div>
+            }
+        }
+        //函数式组件也可以使用三大属性props state refs，使用hooks
+    </script>
+</body>
+
+</html>

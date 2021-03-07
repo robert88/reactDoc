@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="test"></div>
+
+<script type="text/babel">
+    //jsx方式
+      const VDOM = (<h1>
+            <span>hello world</span>
+        </h1>)
+  
+      ReactDOM.render(VDOM,document.getElementById("test"))
+  
+      console.log(VDOM);
+      //他是JavaScript的对象
+      // 虚拟dom比较轻，不需要那么多的属性
+      //虚拟dom会最终转为真实的dom
+      </script>
+</body>
+</html>

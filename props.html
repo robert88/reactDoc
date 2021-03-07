@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+    <script src="./old/prop-types.js"></script>
+    <!-- https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js -->
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+
+      //react中直接改变state不会引起视图的变化，需要使用setState，且更新是合并不是替换
+        class Demo extends React.Compenent {
+            constructor(props) {
+                super(props)
+                //这里props可以提前初始化this.props
+
+                console.log(this.props)//有值
+            }
+            // constructor() {
+            //     super()
+            //     //这里props可以提前初始化this.props
+            //     console.log(this.props)//无值
+            // }
+            static propTypes = {
+                a:PropTypes.string.isRequired
+            }
+            static defaultProps = {
+                b:1
+            }
+            render() {
+                return <div onClick={this.clickEvent}>{this.props.name}</div>//必须有返回值
+            }
+            clickEvent() {
+                this.setState({att1:1})
+            }
+
+        }
+        //批量添加props,es6 的...不能展开对象，但是可以使用{...}复制合并一个对象
+        //但是react和babel就可以展开...,但是只适用于标签使用
+        var props = {a:1,b:1}
+
+        //props传递数字必须这样name={2}数字2； name="2"字符串2
+        ReactDOM.render("<Demoa:1,b: {...props}'/>", document.getElementById("test"))
+        function test() {
+            console.log("点击")
+        }
+        //16版本已经不再使用React.propTypes,而是单独引入prop这样的js，对组件标签属性限制，全局添加PropTypes
+        //关键字变换 function => PropTypes.func
+        //props是只读的
+    </script>
+
+    <script type="text/babel">
+    //函数式组件可以使用props
+
+    function Person(props){
+//可以通过传参来接收props
+    }
+    Perpon.PropTypes = {
+        a:PropTypes.string.isRequired
+    }
+    React.render("<Person/>",document.getElementById("test"))
+    </script>
+</body>
+
+</html>

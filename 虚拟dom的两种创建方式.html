@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="test"></div>
+    <script type="text/javascript">
+  //这种写单个标签可以，但是嵌套不方便  
+    const VDOM = React.createElement("h1",{id:"title"},"hello world")
+
+    ReactDOM.render(VDOM,document.getElementById("test"))
+
+    </script>
+
+<script type="text/babel">
+    //jsx方式
+      const VDOM = (<h1>
+            <span>hello world</span>
+        </h1>)
+  
+      ReactDOM.render(VDOM,document.getElementById("test"))
+  
+      </script>
+</body>
+</html>

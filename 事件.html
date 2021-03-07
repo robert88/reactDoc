@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+
+        //事件必须on接个首字母大写的事件
+        //类中的方法默认开启了严格模式,直接调用事件会被丢失this
+        //react中直接改变state不会引起视图的变化，需要使用setState，且更新是合并不是替换
+        class Demo extends React.Compenent {
+            constructor(props) {
+                super(props);
+                this.clickEvent = this.clickEvent.bind(this)
+            }
+            render() {
+                return console.log(this)//undefinded babel编译之后开启了严格模式
+                return <div onClick={thi.clickEvent}></div>//必须有返回值
+            }
+            //类使用箭头函数this指向类
+            clickEvent =()=> {
+
+            }
+
+        }
+        ReactDOM.render("<Demo/>", document.getElementById("test"))
+        function test() {
+            console.log("点击")
+        }
+    </script>
+</body>
+
+</html>

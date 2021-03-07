@@ -1,0 +1,21 @@
+react 的基础知识
+
+this的指向
+class
+es6
+
+
+react 
+
+构建页面的JavaScript库
+
+
+react
+
+虚拟dom，模块化，声明式编程（区别于命名式编程）
+
+jsx 转 js
+
+es6 -> es5
+
+

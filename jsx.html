@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+<body>
+    <div id="test"></div>
+
+<script type="text/babel">
+    //jsx方式
+    // js的语法糖
+    //xml
+    // 早期用于存储和传输数据
+
+    // jsx定义虚拟dom时候不需要写双引号
+    //多行使用（）包裹起来
+    //混入表达式使用{}
+    //class请使用className
+    //style必须写对象
+    //只能有一个根标签
+    //标签必须要闭合
+    //标签为首字母小写字母，则为html标签，标签的首字母为大写为组件
+    //可以直接使用数组，但是不能用对象
+    //遍历数组必须要有一个唯一的key值
+    //函数式组件必须使用大写开头
+
+    //在chrome下下载react扩展，必须式http协议下才可以
+    var data =[1,2]
+    const VDOM = (<h1>
+            <span>hello world</span>
+            {
+                data.map((item,index)=>{
+                    return <span key={index}>{item}</span>
+                })
+            }
+        </h1>)
+  
+        function Demo(){
+            console.log(this)//undefinded babel编译之后开启了严格模式
+            return <div></div>//必须有返回值
+        }
+    //   ReactDOM.render(VDOM,document.getElementById("test"))
+      ReactDOM.render("<Demo/>",document.getElementById("test"))
+
+      </script>
+</body>
+</html>
