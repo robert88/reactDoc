@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+    <script src="./old/prop-types.js"></script>
+    <!-- https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js -->
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+
+      //react中直接改变state不会引起视图的变化，需要使用setState，且更新是合并不是替换
+        class Demo extends React.Compenent {
+
+            static propTypes = {
+                a:PropTypes.string.isRequired
+            }
+            static defaultProps = {
+                b:1
+            }
+            myRef=React.createRef()
+            render() {
+                //字符串形式的refs，目前这种方式已推荐不用
+                // return <div ref="test1" onClick={this.clickEvent}>{this.props.name}</div>//必须有返回值
+                //回调形式refs
+                //在更新的时候，会调用两次，第一次传递null，第二次传递currentNode.但是不影响
+                return(
+                    <div ref={currentNode => this.test1=currentNode}></div>
+                )
+                //为了避免上述问题应该采用class的方法
+                return(
+                    <div ref={this.saveRef}>
+                    {/*注释写法*/}
+                    </div>
+                )
+                //createRef 得到this.myRef.current,只能存放一个dom
+                return(
+                    <div ref={this.myRef}>
+                    {/*注释写法*/}
+                    </div>
+                )
+            }
+            clickEvent() {
+                console.log(this.refs.test1)//表示ref标识的真正的dom节点
+            }
+            saveRef(c){
+
+            }
+
+        }
+
+        ReactDOM.render("<Demoa:1,b: {...props}'/>", document.getElementById("test"))
+
+
+    </script
+
+</body>
+
+</html>
