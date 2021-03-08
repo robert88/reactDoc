@@ -15,7 +15,7 @@
 
     <script type="text/babel">
 
-        //函数式组件必须使用大写开头
+        //1、函数式组件必须使用大写开头
         function Demo() {
             console.log(this)//undefinded babel编译之后开启了严格模式
             return <div></div>//必须有返回值
@@ -23,13 +23,13 @@
         ReactDOM.render("<Demo/>", document.getElementById("test"))
 
 
-        //类组件-简单组件
+        //2、类组件-简单组件
         class MyComponent extends React.Component{
             render(){
                 return <div>hello world</div>
             }
         }
-        //有状态的组件
+        //3、有状态的组件
         class MyComponent2 extends React.Component{
             constructor(props){
                 super(props)
@@ -40,6 +40,96 @@
             }
         }
         //函数式组件也可以使用三大属性props state refs，使用hooks
+
+        //4、非受控组件
+        class MyComponent2 extends React.Component{
+            constructor(props){
+                super(props)
+                this.state = {}
+            }
+            handlerSubmit = (e)=>{
+                event.preventDefault();
+                const { name, pass} =this;
+                //ajax
+            }
+            render(){
+                //input现输入现获取
+                return(
+                    <from onSubmit={this.handlerSubmit}>
+                        <input type="text" ref={c=>this.name=c} name="user" />
+                        <input type="text"  ref={c=>this.pass=c} name="pass"/>
+                        <button type="submit">提交</button>
+                        </from>
+                ) 
+            }
+        }
+
+          //4、受控组件
+          class MyComponent2 extends React.Component{
+            state= {
+                name:"",
+                pass:""
+            }
+            saveName = ()=>{
+                this.setState({name:e.target.value})
+            }
+            savePass = (e)=>{
+                this.setState({pass:e.target.value})
+            }
+            handlerSubmit = (e)=>{
+                event.preventDefault();
+                const { name, pass} =this;
+                //ajax
+            }
+            render(){
+                //input存入state中，然后从state中取
+                return(
+                    <from onSubmit={this.handlerSubmit}>
+                        <input type="text" onChange={this.saveName} name="user" />
+                        <input type="text" onChange={this.savePass} name="pass"/>
+                        <button type="submit">提交</button>
+                        </from>
+                ) 
+            }
+        }
+
+               //4、受控组件 高阶函数
+               //高阶函数：参数是函数 或者 返回值是函数
+               //函数柯里化 返回值是函数，目的是分布接收函数参数
+               class MyComponent2 extends React.Component{
+            state= {
+                name:"",
+                pass:""
+            }
+            save = (type)=>{// 高阶函数，函数柯里化 
+                return (e)=>{
+                    this.setState({[type]:e.target.value})
+                }
+             
+            }
+            saveRedict = (event,type)=>{//不用函数柯里化
+                return (e)=>{
+                    this.setState({[type]:e.target.value})
+                }
+             
+            }
+            handlerSubmit = (e)=>{
+                event.preventDefault();
+                const { name, pass} =this;
+                //ajax
+            }
+            render(){
+                //input存入state中，然后从state中取
+                return(
+                    <from onSubmit={this.handlerSubmit}>
+                        <input type="text" onChange={this.save("name")} name="user" />
+                        <input type="text" onChange={(e)=>saveRedict(e,"pass")} name="pass"/>
+                        <button type="submit">提交</button>
+                        </from>
+                ) 
+            }
+        }
+
     </script>
 </body>
 
