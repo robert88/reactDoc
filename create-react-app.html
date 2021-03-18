@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+
+        // <React.StrictMode>这个可以规范react组件写法
+        ReactDOM.render(
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>,
+            document.getElementById('root')
+        );
+        //记录性能
+        import reportWebVitals from './reportWebVitals';
+
+        // setupTests.js做整体测试
+
+        //es6export 和结构赋值
+
+        import { Test } from "test.js"//这个需要export导出test
+
+        import T from "test.js"//这个不需要
+        const { Test } = T;
+
+
+    </script>
+
+
+</body>
+
+</html>

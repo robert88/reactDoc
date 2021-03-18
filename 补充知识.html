@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+
+        // <React.StrictMode>这个可以规范react组件写法
+        ReactDOM.render(
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>,
+            document.getElementById('root')
+        );
+        //记录性能
+        import reportWebVitals from './reportWebVitals';
+
+        // setupTests.js做整体测试
+
+        //es6export 和结构赋值
+
+        import { Test } from "test.js"//这个需要export导出test
+
+        import T from "test.js"//这个不需要
+        const { Test } = T;
+
+
+    </script>
+
+    <script>
+        var T = {};
+        export class Test {
+
+        }
+        T.Test = Test;
+        export default T;
+    </script>
+
+    <script>
+        //文件有module关键字可以通过这个方式引用
+        import hello from "index.module.css"
+        class T extends React.component{
+            render(){
+                return (<input type="checkbox" className="hello.title" defualtchecked={true}/>)
+            }
+        }
+
+
+    </script>
+
+    生成唯一的id库
+
+    uuid 比较大不推荐
+    nanoid 推荐
+
+
+    input要区分defaultChecked (只执行一次，静态显示使用)和checked(需要update的时候使用) 区别 ，类似还有defaultValue 和value的区别
+
+    a标签使用target="_blank" 需要是使用rel="noreferrer"
+    img必须使用alt且不能写image 或者picture
+
+    es6连续结构
+    obj = {test:{props:1}}
+    const {test:{props}} = obj;
+    test//undifined
+    props//1
+    // 重命名
+    const {test:{props:keyword}} = obj;
+    test//undifined
+    props//undifined
+    keyword//1

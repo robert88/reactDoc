@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+
+        // hooks 16.8以后支持
+
+        import { Link, BrowserRouter, Route, HashRouter, NavLink, Switch, withRouter } from "react-router-dom"
+
+        //state hook useState
+        function Demo() {
+            const [state, setState] = React.useState(0);
+            function add() {
+                setState({ name: 1 })
+                //函数
+                // setState((state)=>{
+                //     return state
+                // })
+            }
+            return (
+                <div>
+                    {state.name}
+                    <button onClick="{add}"></button>
+                </div>
+            )
+        }
+
+        //effect hook :useEffect
+
+        React.useEffect((val)=>{
+            //componentDidUpdate
+        })
+        React.useEffect((val)=>{
+            //componentDidMount
+            return (val)=>{
+                //componentWillUnMount
+            }
+        },[])
+
+        //ref hook :useRefs
+
+        // 这个跟React.createRefs()用法一致
+
+    </script>
+</body>
+
+</html>

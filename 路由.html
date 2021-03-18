@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+
+
+        // react路由
+        // history.push
+        // history.replace
+        // history.goBack
+        // history.goForWard
+        // history.go
+        // History.createBrowserHistory
+        // History.createHashHistory
+        // web路由器
+        // native路由器
+        // any路由器
+
+        // web路由器
+        // react-router-dom
+
+        import { Link, BrowserRouter, Route, HashRouter,NavLink ,Switch,withRouter} from "react-router-dom"
+        import Home from "Home"
+        import Home1 from "Home1"
+        class T extends React.component {
+            render() {
+                return (
+                    <div>
+                        <BrowserRouter>
+                             {/*同时渲染为a链接*/}
+                            <Link to="/home">1 link </Link>
+                            <Link to="/home1">1 link </Link>
+                        </BrowserRouter>
+                        <BrowserRouter>
+                            {/*根据当前路由显示当前的信息,不会同时渲染*/}
+                            <Route path="/home" component={Home}/>
+                            <Route path="/home1" component={Home1}/>
+                        </BrowserRouter>
+                    </div>
+
+                )
+            }
+        }
+
+        //可以统一使用一个BrowserRouter,
+        //exact表示严格匹配路径,开启之后无法匹配二级路由
+        //replace可以替换history的记录
+        class T extends React.component {
+            render() {
+                return (
+                    <div>
+                        <BrowserRouter>
+                            <Link to="/home">1 link </Link>
+                            <Route path="/home" component={Home} exact replace/>
+                        </BrowserRouter>
+                    </div>
+
+                )
+            }
+        }
+
+
+        // 路由组件Home接收到的props
+        // history
+            // {go,push,goForWard,replace,goBack}
+        // location
+            //{pathname,search,state}
+        // match
+            //{params,path,url}
+        // staticMatch
+
+        // 高亮,activeClassName默认是active
+        class T extends React.component {
+            render() {
+                return (
+                    <div>
+                        <BrowserRouter>
+                            <NavLink activeClassName="test" to="/home">1 link </NavLink>
+                            <Route path="/home" component={Home}/>
+                        </BrowserRouter>
+                    </div>
+
+                )
+            }
+        }
+
+        // 标签体内使用this.props.children
+
+        //switch,只匹配一个route
+        class T extends React.component {
+            render() {
+                return (
+                    <div>
+                        <BrowserRouter>
+                            <NavLink activeClassName="test" to="/home">1 link </NavLink>
+                            <Switch>
+                            <Route path="/home" component={Home}/>
+                            <Route path="/home" component={Home1}/>
+                            </Switch>
+                        </BrowserRouter>
+                    </div>
+
+                )
+            }
+        }
+
+        
+        //redirct 没有匹配就到404
+        class T extends React.component {
+            render() {
+                return (
+                    <div>
+                        <BrowserRouter>
+                            <NavLink activeClassName="test" to="/home">1 link </NavLink>
+                            <Switch>
+                            <Route path="/home" component={Home}/>
+                            <Route path="/home" component={Home1}/>
+                            <Redirect to="/404" />
+                            </Switch>
+                        </BrowserRouter>
+                    </div>
+
+                )
+            }
+        }
+
+        
+        
+        //路由传参 params ,this.props.match.params接收数据
+        //query this.props.location.search 使用import qs from querystring; qs.stringify(params) qs.parse(search)
+        //state 使用 this.props.location.state//这个清除缓存将丢失数据
+        // body:{json,encodeUrlLen}
+
+        class T extends React.component {
+            render() {
+                return (
+                    <div>
+                        <BrowserRouter>
+                            <NavLink activeClassName="test" to={`/home/${id}`}>1 link </NavLink>
+                            <NavLink activeClassName="test" to={`/home1/?id=${id}`}>1 link </NavLink>
+                            <NavLink activeClassName="test" to={{pathname:"/home2",state:{id:id}}}>1 link </NavLink>
+                            <Switch>
+                            <Route path="/home/:id" component={Home}/>
+                            <Route path="/home1" component={Home1}/>
+                            <Redirect to="/404" />
+                            </Switch>
+                        </BrowserRouter>
+                    </div>
+
+                )
+            }
+        }
+
+        //编程式导航 需要借助this.props.history(path,state)来实现
+
+
+        //非路由组件需要使用路由props.history那么需要引入withRouter
+        
+        // 需要在组件里面export
+        // export default T;
+        export default withRouter(T);
+
+
+        //HashRouter 刷新页面不会保持state
+
+     
+
+        //动态加载路由
+        import React,{Component,lazy,Subpense} from "react"
+        const Home = lazy((val)=>{
+            import("./Home")
+        })
+        const Home1 = lazy((val)=>{
+            import("./Home1")
+        })
+        class T extends React.component {
+            render() {
+                return (
+                    <div>
+                    
+                             {/*同时渲染为a链接*/}
+                            <Link to="/home">1 link </Link>
+                            <Link to="/home1">1 link </Link>
+                   
+                            {/*根据当前路由显示当前的信息,不会同时渲染*/}
+                            <Subpense fallback={<h1>loading...</h1>}> 
+                            <Route path="/home" component={Home}/>
+                            <Route path="/home1" component={Home1}/>
+                        </Subpense> 
+                        
+                    </div>
+
+                )
+            }
+        }
+    </script>
+</body>
+
+</html>

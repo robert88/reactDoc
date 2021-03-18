@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+        // https://blog.csdn.net/u011215669/article/details/81051296
+        // Dispatch action
+        // Store
+        // Reducers
+        // React Compnents
+
+        // action 动作的对象
+        // type 唯一的标识
+        // data 传递的数据
+
+        // reducer 加工
+        //根据旧的state和action产生新的纯函数
+
+        // store
+        // 将action state reducer联系的到一起
+
+        // store用法
+
+        import { createStore } from "redux";
+        import reducer from "name_reducer.js";
+
+        export default createStore(reducer)
+
+        //单个 reducer用法
+        //不要对prestate进行修改，如unshift push操作，页面不会更新，应该返回一个新的对象
+        function reducer(prestate, action) {
+            const { type, data } = action;
+            switch (key) {
+                case "add":
+                    return 1
+                    break;
+
+                default:
+                    return 0
+                    break;
+            }
+        }
+
+        // 得到store的值
+        class T extends React.component {
+            componentDidMount() {
+                //redux不会自动更新dom
+                store.subscribe((val) => {
+                    this.setState({})//会重新调用render
+                })
+            }
+            add = (val) => {
+                store.dispatch({ type: "add", data: 1 })
+            }
+            render() {
+                return (
+                    <div>
+                        +{store.getState()}
+                    </div>
+
+                )
+            }
+        }
+
+        //同步action 和异步action
+        // 同步action就是对象
+        // 异步action就是func
+        class T extends React.component {
+            componentDidMount() {
+                //redux不会自动更新dom
+                store.subscribe((val) => {
+                    this.setState({})//会重新调用render
+                })
+            }
+            add = (val) => {
+                store.dispatch((dispatch) => {
+                    setTimeout((val) => {
+                        dispatch({ type: "add", data: 1 })
+                    })
+                })
+            }
+            render() {
+                return (
+                    <div>
+                        +{store.getState()}
+                    </div>
+
+                )
+            }
+        }
+
+
+        // 异步action需要借助redux-thunk
+        // npm install redux-thunk
+
+        import { createStore, applyMiddleware } from "redux";
+        import reducer from "name_reducer.js";
+        import thunk from "redux-thunk";
+
+        export default createStore(reducer, applyMiddleware(thunk))
+
+        //合并多给reducer
+        import { createStore, applyMiddleware,combineReducers } from "redux";
+        import reducer from "name_reducer.js";
+        import reducer2 from "name2_reducer.js";
+        import thunk from "redux-thunk";
+        // import {ComposeWithDevTool} from "redux-devtools-extension"
+        //是个map，那么接收的时候也是对应的map
+        const allReducers = combineReducers({
+            name:reducer,
+            name2:reducer2
+        })
+
+        export default createStore(reducer, applyMiddleware(thunk))
+        // export default createStore(reducer, ComposeWithDevTool(applyMiddleware(thunk)))
+
+
+
+
+        //官方react-redux
+        // 所有ui组件都包裹容器组件 父子组件关系
+        // 容器组件 和react-redux进行通信
+        //ui组件不能和react-redux调用
+        //容器组件传递给ui组件状态和操作
+        //UiContainer.jsx容器组件
+        // ui组件使用this.props.handername来使用
+        import Ui from "Ui.js"
+        import { connect } from "react-redux"
+        //传递store，state
+        function sendState(state) {
+            return state;
+        }
+        //传递方法
+        function sendMethod(dispatch) {
+            return {
+                handlername: function () {
+                    dispatch(action)
+                }
+            }
+        }
+        //react-redux可以自动分发
+        function sendMethod(dispatch) {
+            return {
+                handlername: function () {
+                    return action
+                }
+            }
+        }
+        export default connent(sendState)(Ui);
+
+        //通过props传递给容器组件
+        // APP.jsx
+        import { store } from "store.js"
+        class App extends React.component {
+
+            render() {
+                return (
+                    <div>
+                        <UiContainer store={store} />
+                        <UiContainer1 store={store} />
+                        <UiContainer2 store={store} />
+                        <UiContainer3 store={store} />
+                    </div>
+                    
+                )
+            }
+        }
+
+        React.render((<App/>), document.getElementById("root"))
+
+        //全局监听
+        //使用connect之后这个subscribe就不需要，内部已经帮忙监测了
+        store.subscribe((val) => {
+            React.render((<App/>), document.getElementById("root"))
+        })
+
+        //store通过props传递比较这样比较麻烦
+        // 在index.js里面使用Provider，给所有的容器组件提供了store
+        import { Provider } from "react-redux"
+        
+        React.render((<Provider store={store} ><App/></Provider>), document.getElementById("root"))
+
+
+        //容器组件和ui组件应该放入一个文件，暴露容器组件就可以了
+
+
+        //redux-devTools
+        // npm install redux-devTools
+        // 在store里面引入
+        import {ComposeWithDevTool} from "redux-devtools-extension"
+    </script>
+</body>
+
+</html>

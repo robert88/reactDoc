@@ -26,6 +26,11 @@
             }
             clickEvent() {
                 this.setState({att1:1})
+                this.setState((state,props)=>{return state.att1+1;},(state)=>{
+                    // 这里的state已经更新
+                    consle.log(this.state.att1)//滞后,状态更新是异步的
+                })//函数式的调用
+                consle.log(this.state.att1)//滞后,状态更新是异步的
             }
 
         }

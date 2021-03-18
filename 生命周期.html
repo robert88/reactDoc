@@ -44,6 +44,43 @@
         }
         React.render("<MyComponent />",document.getElementById("test"))
 
+        //shouldComponectUpdate默认式常开,这样性能不好
+
+        // 那么可以在shouldComponectUpdate中判断是否state变化，但实际开发中不使用这个方式，而是使用PureComponent
+        //这个浅比较
+        class MyComponent2 extends React.PureComponent {
+            // 当parent的子组件出现报错时候
+            static getDerivedStateFromError(error){
+                return {hasError:error}
+            }
+            componenctDidCatch(){
+                console.log("统计错误此处，反馈给服务1器")
+            }
+            state = {
+                name: "",
+                pass: ""
+            }
+            unmount = ()=>{
+                React.unmountComponentAtNode(document.getElementById("test"));
+            }
+
+            componentDidMount(){//组件完成之后调用一次
+                // 可以使用定时器
+            }
+            componentWillUnmount(){//组件销毁之前
+                //这里关闭定时器
+            }
+            render() {
+                //不能调用setState，不能使用定时器
+                //input存入state中，然后从state中取
+                return (
+                    <from onSubmit={this.handlerSubmit}>
+                        <button onClick={this.unmount}>提交</button>
+                    </from>
+                )
+            }
+        }
+        React.render("<MyComponent />",document.getElementById("test"))
     </script>
 </body>
 

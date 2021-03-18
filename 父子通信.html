@@ -1,0 +1,110 @@
+<script type="text/babel">
+
+    // 拆分组件，静态组件
+
+    // 动态组件通过props传递state
+
+    // 1、只有自身使用，state放入当前组件
+    // 2、不同组件都会使用，state放入共同的父组件中
+
+    //消息订阅
+    pubsub - js
+
+    // 订阅
+    const token = pubsub.subscribe("name", function (data) { })
+    // 发布
+    pubsub.public("name", "data")
+
+    pubsub.unSubscribe(token)
+
+    //Context 祖孙组件的通信
+    const Context = React.createContext();
+    class A extends React.Compenent {
+        state = { n: 1 }
+        render() {
+            return (
+                <Context.Provider value={n}>
+                    我是a组件
+                    <B />
+                </Context.Provider>
+            )
+        }
+
+    }
+    class B extends React.Compenent {
+
+        render() {
+            return (
+                <>
+                    我是b组件
+                    <C />
+                </>
+            )
+        }
+
+    }
+    class C extends React.Compenent {
+        static contextType = Context
+        render() {
+
+            return (
+                <>
+                    我是C组件{this.context}
+                </>
+            )
+        }
+    }
+    ///函数式
+    function C() {
+        return (
+            <Context.Consumer>
+                { (val) => {
+                    return `我是C组件${value.n}`
+                }}
+
+            </Context.Consumer>
+        )
+    }
+
+
+    //插槽在组件的应用
+
+    //Context 祖孙组件的通信
+
+    class A extends React.Compenent {
+        state = { n: 1 }
+        render() {
+            return (
+                <Context.Provider value={n}>
+                    我是a组件
+                    <B render={(val)=><C m={val} />} />
+                </Context.Provider>
+            )
+        }
+
+    }
+    class B extends React.Compenent {
+        state = { m: 1 }
+        render() {
+            return (
+                <>
+                    我是b组件
+                    {this.props.render(this.state.m)}
+                </>
+            )
+        }
+
+    }
+    class C extends React.Compenent {
+
+        render() {
+
+            return (
+                <>
+                    我是C组件{this.props.m}
+                </>
+            )
+        }
+    }
+
+</script>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+
+
+        //axios
+
+        // react配置一个代理可以package.json
+        //package.json
+        // proxy:"https://www.baidu.com"
+
+        // react配置多个代理在src目录里面建立setupProxy.js
+
+        // 写入一下代码
+        // setupProxy.js
+        const proxy = require("http-proxy-middleware");
+
+        module.exports = function (app) {
+            app.use(
+                proxy('/api1', {
+                    target: "https://www.baidu.com",
+                    changeOrigin: true,
+                    pathWrite: {
+                        "^/api1": ""
+                    }
+                })
+            )
+        }
+        
+        axios("/").then(data=>{
+        }).catch()
+
+        // fetch 关注分离的设计思想
+        // response.json是个promise
+        fetch("/").then(response=>{
+            return response.json()
+        }).then().catch()
+
+    </script>
+</body>
+
+</html>

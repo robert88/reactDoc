@@ -17,7 +17,7 @@
 
         //事件必须on接个首字母大写的事件
         //类中的方法默认开启了严格模式,直接调用事件会被丢失this
-        //react中直接改变state不会引起视图的变化，需要使用setState，且更新是合并不是替换
+        //React事件都是将事件委托到最外层的div
         class Demo extends React.Compenent {
             constructor(props) {
                 super(props);

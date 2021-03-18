@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./old/babel.min.js"></script>
+    <script src="./old/react.development.js"></script>
+    <script src="./old/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/babel">
+
+        // hooks 16.8以后支持
+
+        import React ,{Fragment } from "react"
+
+        //state hook useState可以省略外层的div
+        function Demo() {
+           
+            return (
+                <Fragment>
+                    {state.name}
+                    <button onClick="{add}"></button>
+                </Fragment>
+            )
+                // 空标签也可以但是不能有props
+            // return (
+            //     <>
+            //         {state.name}
+            //         <button onClick="{add}"></button>
+            //     </>
+            // )
+        }
+
+      
+
+    </script>
+</body>
+
+</html>
