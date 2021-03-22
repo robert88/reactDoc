@@ -1,0 +1,7 @@
+react会比较同级的dom元素，
+index作为遍历的key值会导致以下问题
+1、不必要的更新
+假如数组顺序变化，那么react的diff算法会根据key来比较，导致不必要的更新
+如果节点里面有input值，那么会导致input的值窜位
+
+全局安装 npm install -g  create-react-app
